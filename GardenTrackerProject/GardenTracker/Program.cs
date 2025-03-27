@@ -31,8 +31,7 @@ class Program
                         gardenTracker.LogActivity();
                         break;
                     case "2":
-                        Console.WriteLine("You entered Option 2");     
-                        // gardenTracker.ViewReminders();
+                        gardenTracker.ViewReminders();
                         break;
                     case "3":
                         Console.WriteLine("You entered Option 3");

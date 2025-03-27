@@ -63,6 +63,28 @@ namespace GardenTracker
             Console.WriteLine("Activity logged successfully.");
         }
 
+        public void ViewReminders()
+        {
+            Console.WriteLine("Enter the number of days to view reminders:");
+            int days = int.Parse(Console.ReadLine());
+
+            DateTime remindDate = DateTime.Now.AddDays(days);
+            DateTime startDate = DateTime.Now;
+
+
+            Console.WriteLine("Reminders:");
+            foreach (var activity in activities)
+            {
+                if (activity.ReminderDate.HasValue && (activity.ReminderDate.Value >= startDate && activity.ReminderDate.Value <=remindDate))
+                {
+                    Console.WriteLine($"{activity.Plant.Name} - {activity.Type} on {activity.ReminderDate.Value.ToShortDateString()} - Note: {activity.Note}");
+                }
+                else
+                {
+                    Console.WriteLine("No reminders for the given period!");
+                }
+            }
+        }
         private void DisplayPlants()
         {
             for (int i = 0; i < plants.Count; i++)
