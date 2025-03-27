@@ -12,6 +12,11 @@ namespace GardenTracker
         private const string PlantsFilePath = "plants_db.txt";
         private const string ActivitiesFilePath = "activities_db.txt";
 
+        public GardenTracker()
+        {
+            plants = LoadPlants();
+            activities = LoadActivities();
+        }
 
         public void LogActivity()
         {
@@ -64,6 +69,26 @@ namespace GardenTracker
             {
                 Console.WriteLine($"{i + 1}. {plants[i].Name}");
             }
+        }
+
+        private List<Plant> LoadPlants()
+        {
+            if (File.Exists(PlantsFilePath))
+            {
+                string json = File.ReadAllText(PlantsFilePath);
+                return JsonSerializer.Deserialize<List<Plant>>(json);
+            }
+            return new List<Plant>();
+        }
+
+        private List<Activity> LoadActivities()
+        {
+            if (File.Exists(ActivitiesFilePath))
+            {
+                string json = File.ReadAllText(ActivitiesFilePath);
+                return JsonSerializer.Deserialize<List<Activity>>(json);
+            }
+            return new List<Activity>();
         }
 
         private void SaveActivities()
