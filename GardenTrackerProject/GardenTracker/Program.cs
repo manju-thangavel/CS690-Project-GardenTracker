@@ -11,7 +11,7 @@ class Program
                 return;
             }
 
-            //GardenTracker gardenTracker = new GardenTracker();
+            GardenTracker gardenTracker = new GardenTracker();
             bool exit = false;
 
             while (!exit)
@@ -28,8 +28,7 @@ class Program
                 switch (choice)
                 {
                     case "1":
-                        Console.WriteLine("You entered Option 1");     
-                        // gardenTracker.LogActivity();
+                        gardenTracker.LogActivity();
                         break;
                     case "2":
                         Console.WriteLine("You entered Option 2");     
