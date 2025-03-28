@@ -38,11 +38,10 @@ class Program
                         // gardenTracker.ManagePlants();
                         break;
                     case "4":
-                        Console.WriteLine("You entered Option 4");
-                        // gardenTracker.ViewHistory();
+                        gardenTracker.ViewHistory();
                         break;
                     case "5":
-                        Console.WriteLine("You entered Option 5");
+                        Console.WriteLine("You entered option to Exit");
                         exit = true;
                         break;
                     default:

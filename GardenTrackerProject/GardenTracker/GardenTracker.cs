@@ -21,8 +21,8 @@ namespace GardenTracker
         public void LogActivity()
         {
             Console.WriteLine("Select a plant:");
-            DisplayPlants();
-            int plantIndex = int.Parse(Console.ReadLine()) - 1;
+            ShowPlants();
+            int plantPosition = int.Parse(Console.ReadLine()) - 1;
 
             Console.WriteLine("Select an activity:");
             Console.WriteLine("1. Planting");
@@ -56,7 +56,7 @@ namespace GardenTracker
                }
             }
 
-            Activity activity = new Activity(plants[plantIndex], (ActivityType)activityType, activityDate, note, reminderDate);
+            Activity activity = new Activity(plants[plantPosition], (ActivityType)activityType, activityDate, note, reminderDate);
             activities.Add(activity);
             SaveActivities();
 
@@ -69,23 +69,53 @@ namespace GardenTracker
             int days = int.Parse(Console.ReadLine());
 
             DateTime remindDate = DateTime.Now.AddDays(days);
-            DateTime startDate = DateTime.Now;
-
+            DateTime todayDate = DateTime.Now;
+            int reminderCount = 0;
 
             Console.WriteLine("Reminders:");
             foreach (var activity in activities)
             {
-                if (activity.ReminderDate.HasValue && (activity.ReminderDate.Value >= startDate && activity.ReminderDate.Value <=remindDate))
+                if (activity.ReminderDate.HasValue && (activity.ReminderDate.Value >= todayDate && activity.ReminderDate.Value <=remindDate))
                 {
                     Console.WriteLine($"{activity.Plant.Name} - {activity.Type} on {activity.ReminderDate.Value.ToShortDateString()} - Note: {activity.Note}");
-                }
-                else
-                {
-                    Console.WriteLine("No reminders for the given period!");
+                    reminderCount++;
                 }
             }
+            if (reminderCount == 0)
+            {
+                Console.WriteLine("No reminders for the given period!");
+            }
         }
-        private void DisplayPlants()
+
+        public void ViewHistory()
+        {
+            Console.WriteLine("Select a plant:");
+            ShowPlants();
+            int plantPosition = int.Parse(Console.ReadLine()) - 1;
+
+            Console.WriteLine("Enter the number of days for viewing log history:");
+            int days = int.Parse(Console.ReadLine());
+
+
+            DateTime historyStartDate = DateTime.Now.AddDays(-days);
+            int historyCount = 0;
+
+            Console.WriteLine("Activity History:");
+            foreach (var activity in activities)
+            {
+                if (activity.Plant.Name.Equals(plants[plantPosition].Name, StringComparison.OrdinalIgnoreCase) && activity.Date >= historyStartDate)
+                {
+                    Console.WriteLine($"{activity.Date.ToShortDateString()} - {activity.Type} - Note: {activity.Note}");
+                    historyCount++;
+                }
+            }
+            if (historyCount == 0)
+            {
+                Console.WriteLine("No activities found for the given period!");
+            }
+        }
+
+        private void ShowPlants()
         {
             for (int i = 0; i < plants.Count; i++)
             {
