@@ -115,6 +115,62 @@ namespace GardenTracker
             }
         }
 
+        public void ManagePlants()
+        {
+            Console.WriteLine("1. Add Plant");
+            Console.WriteLine("2. Remove Plant");
+                     
+            if (!int.TryParse(Console.ReadLine(), out int choice) || (choice != 1 && choice != 2))
+            {
+                Console.WriteLine("Invalid entry. Please enter option 1 or 2 correctly");
+                return;
+            }
+
+            if (choice == 1)
+            {
+                Console.WriteLine("Enter plant name to add to the garden tracker:");
+                string name = Console.ReadLine();
+
+                if (string.IsNullOrWhiteSpace(name))
+                {
+                    Console.WriteLine("Invalid plant name. Please try again.");
+                    return;
+                }
+
+                if (!PlantExists(name))
+                {
+                    plants.Add(new Plant(name));
+                    SavePlants();
+                    Console.WriteLine("Plant added to garden tracker successfully!");
+                }
+                else
+                {
+                    Console.WriteLine("Plant already exists in the garden tracker.");
+                }
+            }
+            else if (choice == 2)
+            {
+                if (plants.Count == 0)
+                {
+                    Console.WriteLine("No plants to remove.");
+                    return;
+                }
+                Console.WriteLine("Select a plant to remove from the garden tracker:");
+                ShowPlants();
+                if (!int.TryParse(Console.ReadLine(), out int plantIdx) || plantIdx < 1 || plantIdx > plants.Count)
+                {
+                    Console.WriteLine("Invalid plant selection. Please try again.");
+                    return;
+                }
+
+                int plantPosition = plantIdx - 1;
+
+                plants.RemoveAt(plantPosition);
+                SavePlants();
+                Console.WriteLine("Plant removed successfully.");
+            }
+        }
+
         private void ShowPlants()
         {
             for (int i = 0; i < plants.Count; i++)
@@ -159,6 +215,12 @@ namespace GardenTracker
                 }
             }
             return false;
+        }
+
+        private void SavePlants()
+        {
+            string json = JsonSerializer.Serialize(plants);
+            File.WriteAllText(PlantsFilePath, json);
         }
     }
 }
