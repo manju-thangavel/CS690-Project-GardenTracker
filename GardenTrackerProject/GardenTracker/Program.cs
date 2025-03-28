@@ -34,8 +34,7 @@ class Program
                         gardenTracker.ViewReminders();
                         break;
                     case "3":
-                        Console.WriteLine("You entered Option 3");
-                        // gardenTracker.ManagePlants();
+                        gardenTracker.ManagePlants();
                         break;
                     case "4":
                         gardenTracker.ViewHistory();
