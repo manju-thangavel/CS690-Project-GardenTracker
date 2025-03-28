@@ -1,1 +1,1 @@
-[{"Plant":{"Name":"Tomato"},"Type":3,"Date":"2025-03-27T10:44:12.6834385+00:00","Note":"First activity","ReminderDate":"2025-04-06T10:44:20.2970721+00:00"}]
+[{"Plant":{"Name":"Tomato"},"Type":3,"Date":"2025-03-27T10:44:12.6834385+00:00","Note":"First activity","ReminderDate":"2025-04-06T10:44:20.2970721+00:00"},{"Plant":{"Name":"Tomato"},"Type":3,"Date":"2025-03-28T11:07:30.6944979+00:00","Note":"watering done","ReminderDate":"2025-04-04T11:07:33.6331042+00:00"},{"Plant":{"Name":"Basil"},"Type":4,"Date":"2025-03-28T11:21:12.4047009+00:00","Note":"test","ReminderDate":null}]
