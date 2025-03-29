@@ -3,6 +3,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GardenTracker.Tests", "GardenTracker.Tests\GardenTracker.Tests.csproj", "{3E935B4C-B9C6-4B6B-8D59-EA3CB3C73D9E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GardenTracker", "GardenTracker\GardenTracker.csproj", "{4802536A-D688-48A9-94B6-C299140304C3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -10,5 +14,15 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3E935B4C-B9C6-4B6B-8D59-EA3CB3C73D9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E935B4C-B9C6-4B6B-8D59-EA3CB3C73D9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E935B4C-B9C6-4B6B-8D59-EA3CB3C73D9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E935B4C-B9C6-4B6B-8D59-EA3CB3C73D9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4802536A-D688-48A9-94B6-C299140304C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4802536A-D688-48A9-94B6-C299140304C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4802536A-D688-48A9-94B6-C299140304C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4802536A-D688-48A9-94B6-C299140304C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

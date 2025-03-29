@@ -5,7 +5,7 @@ namespace GardenTracker
 {
     public class User
     {
-        private const string UserFilePath = "user_details_db.txt";
+        protected virtual string UserFilePath => "user_details_db.txt";
         private string username;
         private string password;
 
