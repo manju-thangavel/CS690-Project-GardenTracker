@@ -7,10 +7,10 @@ namespace GardenTracker
 {
     public class GardenTracker
     {
-        private List<Plant> plants;
-        private List<Activity> activities;
-        private const string PlantsFilePath = "plants_db.txt";
-        private const string ActivitiesFilePath = "activities_db.txt";
+        protected List<Plant> plants;
+        protected List<Activity> activities;
+        protected virtual string PlantsFilePath => "plants_db.txt";
+        protected virtual string ActivitiesFilePath => "activities_db.txt";
 
         public GardenTracker()
         {
@@ -171,7 +171,7 @@ namespace GardenTracker
             }
         }
 
-        private void ShowPlants()
+        protected void ShowPlants()
         {
             for (int i = 0; i < plants.Count; i++)
             {
@@ -179,7 +179,7 @@ namespace GardenTracker
             }
         }
 
-        private List<Plant> LoadPlants()
+        protected List<Plant> LoadPlants()
         {
             if (File.Exists(PlantsFilePath))
             {
@@ -189,7 +189,7 @@ namespace GardenTracker
             return new List<Plant>();
         }
 
-        private List<Activity> LoadActivities()
+        protected List<Activity> LoadActivities()
         {
             if (File.Exists(ActivitiesFilePath))
             {
@@ -199,13 +199,13 @@ namespace GardenTracker
             return new List<Activity>();
         }
 
-        private void SaveActivities()
+        protected void SaveActivities()
         {
             string json = JsonSerializer.Serialize(activities);
             File.WriteAllText(ActivitiesFilePath, json);
         }
 
-        private bool PlantExists(string name)
+        protected bool PlantExists(string name)
         {
             foreach (var plant in plants)
             {
@@ -217,7 +217,7 @@ namespace GardenTracker
             return false;
         }
 
-        private void SavePlants()
+        protected void SavePlants()
         {
             string json = JsonSerializer.Serialize(plants);
             File.WriteAllText(PlantsFilePath, json);
