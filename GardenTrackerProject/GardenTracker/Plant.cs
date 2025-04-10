@@ -13,5 +13,19 @@ namespace GardenTracker.Models
         {
             return Name;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Plant otherPlant)
+            {
+                return string.Equals(Name, otherPlant.Name, StringComparison.OrdinalIgnoreCase);
+            }
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return Name?.ToLowerInvariant().GetHashCode() ?? 0;
+        }
     }
 }
