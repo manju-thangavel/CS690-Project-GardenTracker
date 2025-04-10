@@ -1,8 +1,8 @@
 using GardenTracker.Models;
-using Spectre.Console;
-using System.Text.Json;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text.Json;
 
 namespace GardenTracker.Management
 {
@@ -17,55 +17,48 @@ namespace GardenTracker.Management
             plants = LoadPlants();
         }
 
-        public void ManagePlants()
+        public List<Plant> GetPlants()
         {
-            var choice = AnsiConsole.Prompt(
-                new SelectionPrompt<string>()
-                    .Title("[bold green]Manage Plants:[/]")
-                    .AddChoices("Add Plant", "Remove Plant"));
+            return plants;
+        }
 
-            if (choice == "Add Plant")
+        public void AddPlant(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
             {
-                string name = AnsiConsole.Ask<string>("[bold green]Enter plant name to add to the garden tracker:[/]").Trim();
-
-                if (string.IsNullOrWhiteSpace(name))
-                {
-                    AnsiConsole.MarkupLine("[bold red]Invalid plant name. Please try again.[/]");
-                    return;
-                }
-
-                if (!PlantExists(name))
-                {
-                    plants.Add(new Plant(name));
-                    SavePlants();
-                    AnsiConsole.MarkupLine("[bold green]Plant added to garden tracker successfully![/]");
-                }
-                else
-                {
-                    AnsiConsole.MarkupLine("[bold red]Plant already exists in the garden tracker.[/]");
-                }
+                throw new ArgumentException("Plant name cannot be empty or whitespace.", nameof(name));
             }
-            else if (choice == "Remove Plant")
+
+            if (!PlantExists(name))
             {
-                if (plants.Count == 0)
-                {
-                    AnsiConsole.MarkupLine("[bold red]No plants to remove.[/]");
-                    return;
-                }
-
-                var plant = AnsiConsole.Prompt(
-                    new SelectionPrompt<Plant>()
-                        .Title("[bold green]Select a plant to remove from the garden tracker:[/]")
-                        .AddChoices(plants)
-                        .UseConverter(p => p.Name));
-
-                plants.Remove(plant);
+                plants.Add(new Plant(name));
                 SavePlants();
-                AnsiConsole.MarkupLine("[bold green]Plant removed successfully.[/]");
+            }
+            else
+            {
+                throw new InvalidOperationException("Plant already exists.");
             }
         }
 
-        public List<Plant> LoadPlants()
+        public void RemovePlant(Plant plant)
+        {
+            if (plant == null)
+            {
+                throw new ArgumentNullException(nameof(plant), "Plant cannot be null.");
+            }
+
+            if (plants.Contains(plant))
+            {
+                plants.Remove(plant);
+                SavePlants();
+            }
+            else
+            {
+                throw new InvalidOperationException("Plant does not exist.");
+            }
+        }
+
+        private List<Plant> LoadPlants()
         {
             if (File.Exists(_plantsFilePath))
             {
@@ -76,13 +69,13 @@ namespace GardenTracker.Management
             return new List<Plant>();
         }
 
-        public void SavePlants()
+        private void SavePlants()
         {
             string json = JsonSerializer.Serialize(plants);
             File.WriteAllText(_plantsFilePath, json);
         }
 
-        public bool PlantExists(string name)
+        private bool PlantExists(string name)
         {
             foreach (var plant in plants)
             {
