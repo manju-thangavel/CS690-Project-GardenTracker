@@ -1,21 +1,28 @@
 using GardenTracker.Models;
 using Spectre.Console;
 using System.Collections.Generic;
-using System.IO;
-using System.Text.Json;
 using System;
 
 namespace GardenTracker.Management
 {
     public class ActivityManagement
     {
-        private readonly string _activitiesFilePath;
-        private List<Activity> activities;
+        private readonly ActivityService _activityService;
 
-        public ActivityManagement(string activitiesFilePath = "activities_db.txt")
+        public ActivityManagement(ActivityService activityService)
         {
-            _activitiesFilePath = activitiesFilePath;
-            activities = LoadActivities();
+            _activityService = activityService;
+        }
+
+        public void LogActivity(Plant plant, ActivityType activityType, string note, DateTime? reminderDate = null)
+        {
+            if (plant == null)
+            {
+                throw new ArgumentNullException(nameof(plant), "Plant cannot be null.");
+            }
+
+            var activity = new Activity(plant, activityType, DateTime.UtcNow, note, reminderDate);
+            _activityService.AddActivity(activity);
         }
 
         public void LogActivity(List<Plant> plants)
@@ -48,28 +55,9 @@ namespace GardenTracker.Management
                 reminderDate = DateTime.UtcNow.AddDays(reminderDays);
             }
 
-            var activity = new Activity(plant, activityType, DateTime.UtcNow, note, reminderDate);
-            activities.Add(activity);
-            SaveActivities();
+            LogActivity(plant, activityType, note, reminderDate);
 
             AnsiConsole.MarkupLine("[bold green]Activity logged successfully![/]");
-        }
-
-        private List<Activity> LoadActivities()
-        {
-            if (File.Exists(_activitiesFilePath))
-            {
-                string json = File.ReadAllText(_activitiesFilePath);
-                var activitiesList = JsonSerializer.Deserialize<List<Activity>>(json);
-                return activitiesList ?? new List<Activity>();
-            }
-            return new List<Activity>();
-        }
-
-        private void SaveActivities()
-        {
-            string json = JsonSerializer.Serialize(activities);
-            File.WriteAllText(_activitiesFilePath, json);
         }
     }
 }
