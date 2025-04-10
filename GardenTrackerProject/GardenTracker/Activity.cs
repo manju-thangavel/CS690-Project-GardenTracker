@@ -1,7 +1,16 @@
 using System;
 
-namespace GardenTracker
+namespace GardenTracker.Models
 {
+    public enum ActivityType
+    {
+        Planting,
+        Pruning,
+        Watering,
+        Harvesting,
+        Fertilizing
+    }
+
     public class Activity
     {
         public Plant Plant { get; set; }
@@ -18,14 +27,5 @@ namespace GardenTracker
             Note = note;
             ReminderDate = reminderDate;
         }
-    }
-
-    public enum ActivityType
-    {
-        Planting = 1,
-        Pruning,
-        Watering,
-        Harvesting,
-        Fertilizing
     }
 }

@@ -5,12 +5,22 @@ using GardenTracker;
 
 namespace GardenTracker.Tests
 {
-    public class UserLoginTests
+    public class UserLoginTests : IDisposable
     {
         private const string TestUserFilePath = "test_user_details_db.txt";
+        private readonly TextReader _originalConsoleIn = Console.In;
+        private readonly TextWriter _originalConsoleOut = Console.Out;
+
+        public UserLoginTests()
+        {
+            if (File.Exists(TestUserFilePath))
+            {
+                File.Delete(TestUserFilePath);
+            }
+        }
 
         [Fact]
-        public void Login_ShouldSucceed_WhenValidUSerDetails()
+        public void Login_ShouldSucceed_WhenValidUserDetailsProvided()
         {
             File.WriteAllLines(TestUserFilePath, new string[] { "testuser", "testpassword" });
             var consoleInput = new StringReader("testuser\ntestpassword\n");
@@ -23,14 +33,12 @@ namespace GardenTracker.Tests
 
             bool loginResult = user.Login();
 
-            Assert.True(loginResult);
+            Assert.True(loginResult, "Login should succeed with valid credentials.");
             Assert.Contains("Login successful!", consoleOutput.ToString());
-
-            File.Delete(TestUserFilePath);
         }
 
         [Fact]
-        public void Login_ShouldFail_WhenInValidUSerDetails()
+        public void Login_ShouldFail_WhenInvalidUserDetailsProvided()
         {
             File.WriteAllLines(TestUserFilePath, new string[] { "testuser", "testpassword" });
             var consoleInput = new StringReader("wronguser\nwrongpassword\n");
@@ -43,20 +51,13 @@ namespace GardenTracker.Tests
 
             bool loginResult = user.Login();
 
-            Assert.False(loginResult);
+            Assert.False(loginResult, "Login should fail with invalid credentials.");
             Assert.Contains("Invalid username or password.", consoleOutput.ToString());
-
-            File.Delete(TestUserFilePath);
         }
 
         [Fact]
         public void Register_ShouldCreateUserFile_WhenFileDoesNotExist()
         {
-            if (File.Exists(TestUserFilePath))
-            {
-                File.Delete(TestUserFilePath);
-            }
-
             var consoleInput = new StringReader("newuser\nnewpassword\n");
             Console.SetIn(consoleInput);
 
@@ -65,18 +66,27 @@ namespace GardenTracker.Tests
 
             var user = new UserWrapper(TestUserFilePath);
 
-            bool loginResult = user.Login(); 
+            bool loginResult = user.Login();
 
-            Assert.False(loginResult); 
+            Assert.False(loginResult, "Login should fail initially since the user file does not exist.");
             Assert.Contains("User not found. Please register.", consoleOutput.ToString());
             Assert.Contains("Registration success! Please login now.", consoleOutput.ToString());
-            Assert.True(File.Exists(TestUserFilePath));
+            Assert.True(File.Exists(TestUserFilePath), "User file should be created after registration.");
 
             string[] userDetails = File.ReadAllLines(TestUserFilePath);
             Assert.Equal("newuser", userDetails[0]);
             Assert.Equal("newpassword", userDetails[1]);
+        }
 
-            File.Delete(TestUserFilePath);
+        public void Dispose()
+        {
+            Console.SetIn(_originalConsoleIn);
+            Console.SetOut(_originalConsoleOut);
+
+            if (File.Exists(TestUserFilePath))
+            {
+                File.Delete(TestUserFilePath);
+            }
         }
 
         public class UserWrapper : User
@@ -87,6 +97,7 @@ namespace GardenTracker.Tests
             {
                 _testUserFilePath = testUserFilePath;
             }
+
             protected override string UserFilePath => _testUserFilePath;
         }
     }
