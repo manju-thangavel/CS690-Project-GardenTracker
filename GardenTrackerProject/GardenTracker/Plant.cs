@@ -1,4 +1,4 @@
-namespace GardenTracker
+namespace GardenTracker.Models
 {
     public class Plant
     {
@@ -7,6 +7,11 @@ namespace GardenTracker
         public Plant(string name)
         {
             Name = name;
+        }
+
+        public override string ToString()
+        {
+            return Name;
         }
     }
 }
