@@ -2,6 +2,8 @@ using Spectre.Console;
 using System;
 using System.Collections.Generic;
 
+// This template focuses on the User Interface 
+
 namespace GardenTracker
 {
     public class ConsoleUI

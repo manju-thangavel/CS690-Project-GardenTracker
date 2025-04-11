@@ -4,6 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+// This module focuses on the History management
+// User can view the history of activities logged for the selected plant and period
+
 namespace GardenTracker.Management
 {
     public class HistoryManagement

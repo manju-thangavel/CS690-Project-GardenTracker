@@ -4,6 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+// This module focuses on the Reminders management
+// User can view the reminders of activities logged for the selected period
+
 namespace GardenTracker.Management
 {
     public class ReminderManagement
@@ -38,7 +41,7 @@ namespace GardenTracker.Management
             }
             else
             {
-                AnsiConsole.MarkupLine($"[bold green]Displayed {reminderCount} reminders.[/]");
+                AnsiConsole.MarkupLine($"[bold green]Displayed {reminderCount} reminders.[/]"); // print the total reminders count
             }
         }
 
@@ -52,7 +55,7 @@ namespace GardenTracker.Management
                 .Where(activity => activity.ReminderDate.HasValue &&
                                    activity.ReminderDate.Value.ToUniversalTime() >= todayDate &&
                                    activity.ReminderDate.Value.ToUniversalTime() <= remindDate)
-                .OrderBy(activity => activity.ReminderDate ?? DateTime.MaxValue)
+                .OrderBy(activity => activity.ReminderDate ?? DateTime.MaxValue) // Sort the reminders in the ascending order
                 .ToList();
         }
     }
