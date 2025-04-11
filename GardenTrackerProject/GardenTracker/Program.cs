@@ -3,6 +3,9 @@ using GardenTracker.Models;
 using System;
 using System.Collections.Generic;
 
+// This program is to handle user's garden tracker requirements.
+// User can log activities, view history of activities, manage plants, view reminders
+
 namespace GardenTracker
 {
     public class Program
@@ -12,6 +15,7 @@ namespace GardenTracker
             var consoleUI = new ConsoleUI();
             var userManagement = new UserManagement();
 
+            // check if login is successful
             if (!userManagement.Login())
             {
                 consoleUI.PrintMessage("Login failed. Exiting application.", "red");
@@ -25,6 +29,7 @@ namespace GardenTracker
             var historyManagement = new HistoryManagement(activityService);
 
             bool exit = false;
+            // provide user with the choices to choose from nd perform corresponding action
             while (!exit)
             {
                 var choice = consoleUI.PromptSelection("Select an option:", new[]

@@ -3,6 +3,9 @@ using Spectre.Console;
 using System.Collections.Generic;
 using System;
 
+// This module focuses on the Activities management
+// User can log the activities for the selected plant, set a reminder and note
+
 namespace GardenTracker.Management
 {
     public class ActivityManagement

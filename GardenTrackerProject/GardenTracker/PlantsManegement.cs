@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 
+// This module focuses on the plants management
+// User can add a plant or remove a plant for tracking
+
 namespace GardenTracker.Management
 {
     public class PlantsManagement
