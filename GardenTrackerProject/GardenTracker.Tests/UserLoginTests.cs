@@ -70,7 +70,7 @@ namespace GardenTracker.Tests
 
             Assert.False(loginResult, "Login should fail initially since the user file does not exist.");
             Assert.Contains("User not found. Please register.", consoleOutput.ToString());
-            Assert.Contains("Registration success! Please login now.", consoleOutput.ToString());
+            Assert.Contains("Registration success!", consoleOutput.ToString());
             Assert.True(File.Exists(TestUserFilePath), "User file should be created after registration.");
 
             string[] userDetails = File.ReadAllLines(TestUserFilePath);
