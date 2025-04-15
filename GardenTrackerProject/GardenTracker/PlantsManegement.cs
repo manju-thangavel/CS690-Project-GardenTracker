@@ -39,7 +39,7 @@ namespace GardenTracker.Management
             }
             else
             {
-                throw new InvalidOperationException("Plant already exists.");
+                throw new InvalidOperationException("Plant already exists."); //Duplicate plant name keyed by user
             }
         }
 

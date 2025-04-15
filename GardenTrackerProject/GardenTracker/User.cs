@@ -11,6 +11,7 @@ namespace GardenTracker
 
         public bool Login()
         {
+            // First time user registration is required
             if (!File.Exists(UserFilePath))
             {
                 Register();
@@ -52,7 +53,7 @@ namespace GardenTracker
 
             File.WriteAllLines(UserFilePath, new string[] { username, password });
 
-            Console.WriteLine("Registration success! Please login now.");
+            Console.WriteLine("Registration success!");
         }
     }
 }

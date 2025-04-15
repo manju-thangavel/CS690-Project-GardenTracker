@@ -2,6 +2,7 @@ using System;
 
 namespace GardenTracker.Models
 {
+    // These are the list of activites the user can select for a plan to track 
     public enum ActivityType
     {
         Planting,

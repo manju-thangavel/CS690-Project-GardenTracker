@@ -18,6 +18,7 @@ namespace GardenTracker.Management
             _activityService = activityService;
         }
 
+// View History option
         public void ViewHistory(List<Plant> plants)
         {
             if (plants.Count == 0)
@@ -61,7 +62,7 @@ namespace GardenTracker.Management
 
             return activities
                 .Where(activity => activity.Plant.Equals(plant) && activity.Date.ToUniversalTime() >= historyStartDate)
-                .OrderBy(activity => activity.Date)
+                .OrderBy(activity => activity.Date) //arranging in ascending order of activities based on the activity date
                 .ToList();
         }
     }
