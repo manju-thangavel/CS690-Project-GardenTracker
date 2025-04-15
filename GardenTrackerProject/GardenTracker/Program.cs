@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 // This program is to handle user's garden tracker requirements.
 // User can log activities, view history of activities, manage plants, view reminders
+// All Date and time are handled in UTC timezone format in this program and its sub modules
 
 namespace GardenTracker
 {
@@ -22,6 +23,7 @@ namespace GardenTracker
                 return;
             }
 
+//Make calls to each of the activity the user wants to perform from Main page
             var plantsManagement = new PlantsManagement();
             var activityService = new ActivityService();
             var activityManagement = new ActivityManagement(activityService);

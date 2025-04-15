@@ -1,1 +1,1 @@
-[{"Plant":{"Name":"Tomato"},"Type":0,"Date":"2025-04-10T23:20:49.4849905Z","Note":"test1","ReminderDate":"2025-04-20T23:20:49.4847317Z"}]
+[{"Plant":{"Name":"Tomato"},"Type":0,"Date":"2025-04-10T23:20:49.4849905Z","Note":"test1","ReminderDate":"2025-04-20T23:20:49.4847317Z"},{"Plant":{"Name":"Tomato"},"Type":4,"Date":"2025-04-15T02:17:54.9224963Z","Note":"test","ReminderDate":"2025-05-05T02:17:54.9223004Z"}]

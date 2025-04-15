@@ -19,6 +19,7 @@ namespace GardenTracker.Management
 
         public void LogActivity(Plant plant, ActivityType activityType, string note, DateTime? reminderDate = null)
         {
+            // User should add a plant first before they could log an activity
             if (plant == null)
             {
                 throw new ArgumentNullException(nameof(plant), "Plant cannot be null.");
@@ -30,6 +31,7 @@ namespace GardenTracker.Management
 
         public void LogActivity(List<Plant> plants)
         {
+            // User should add a plan tfirst before they could log an activity
             if (plants.Count == 0)
             {
                 AnsiConsole.MarkupLine("[bold red]No plants available. Please add plants first.[/]");
@@ -46,11 +48,14 @@ namespace GardenTracker.Management
                 new SelectionPrompt<ActivityType>()
                     .Title("[bold green]Select an activity:[/]")
                     .AddChoices(ActivityType.Planting, ActivityType.Pruning, ActivityType.Watering, ActivityType.Harvesting, ActivityType.Fertilizing));
-
+            
+            //UI should ask for y/n for this question for user to continue
             string note = AnsiConsole.Ask<string>("[bold green]Enter your custom note for this activity:[/]");
 
+            //UI should ask for y/n for this question for user to continue
             bool setReminder = AnsiConsole.Confirm("[bold green]Do you want to set a reminder for this activity?[/]");
 
+            // Setting reminder is optional, so accepting null value to this
             DateTime? reminderDate = null;
             if (setReminder)
             {
